@@ -13,7 +13,7 @@ class vectorDataBase():
         try:
             vector_db = FAISS.load_local(path, embeddings=emdeddings, allow_dangerous_deserialization=True)
             self.is_db_present = True
-            if self.is_db_present is not None:
+            if self.is_db_present == True:
                 print("Previous vector db is over written by this function")
             return vector_db
 
@@ -36,7 +36,7 @@ class vectorDataBase():
                 index_to_docstore_id=indesToDocStoreID
             )
             self.is_db_present = True
-            if self.is_db_present is not None:
+            if self.is_db_present == True:
                 print("Previous vector db is over written by this function")
             return vector_db
 
