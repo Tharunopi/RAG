@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_card import card
+from utils.supabase import supabaseClient, userData
 
 user_info = st.user.to_dict()
 
@@ -22,6 +23,12 @@ if st.user.is_logged_in:
         text=f"Email: {email}",
         image=image
     )
+
+    supabase = supabaseClient()
+    db_user_data = userData(name=name, email_id=email, email_verified=email_verified, profile_icon=image)
+    upsert_result = supabase.upsert(db_user_data)
+
+    st.write()
 
     if st.button("logout"):
         st.logout()
