@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.qdrant_vector_db import create_new_vector_db, get_collections
+from utils.qdrant_vector_db import create_new_vector_db, get_collections, get_vectorstore
 
 st.set_page_config(
     page_title="PDF chatbot",
@@ -21,8 +21,8 @@ if st.user.is_logged_in:
     st.session_state["image"] = user_info["picture"]
     st.session_state["is_logged_in"] = user_info["is_logged_in"]
 
-
-    db_result = create_new_vector_db(email=st.session_state["email"])
-    st.write(db_result)
-    st.write(get_collections())
-    st.image("https://www.memecreator.org/static/images/memes/3796301.jpg")
+    available_collections = get_collections()
+    if st.session_state["email"] not in available_collections:
+        db_result = create_new_vector_db(email=st.session_state["email"])
+    
+    st.image("https://i.pinimg.com/736x/e8/56/3c/e8563cacce7c62309e4ff37756b796bc.jpg", width=150)
