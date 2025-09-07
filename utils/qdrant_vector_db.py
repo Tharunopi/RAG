@@ -72,3 +72,18 @@ class qdrantDB():
         except Exception as e:
             print(f"delete_collection: {e}")
             return None
+
+    def upload_to_collection(self,email:str ,embedded_values:list) -> Optional[bool]:
+        """
+        Upload embedded vectors to the existing collection
+        """
+        try:
+            self.__qdrant_client.upload_collection(
+                collection_name=email,
+                vectors=embedded_values
+            )
+            return True
+
+        except Exception as e:
+            print(f"upload_to_collection: {e}")
+            return None
