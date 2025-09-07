@@ -10,9 +10,14 @@ try:
     )  
 
     for i in pdfs:
-        result = st.session_state["pdf_processor"].pdf_to_embeddings(i)
-        with st.spinner(f"uploading embedding to {email}'s collection", show_time=True):
-            push_status = st.session_state["qdrant_client"].upload_to_collection(email, result)
+        if i.name not in st.session_state["processed_pdf_name"]:
+            result = st.session_state["pdf_processor"].pdf_to_embeddings(i)
+            st.session_state["processed_pdf_name"].append(i.name)
+            with st.spinner(f"uploading embedding to {email}'s collection", show_time=True):
+                push_status = st.session_state["qdrant_client"].upload_to_collection(email, result)
+            st.write(st.session_state["qdrant_client"].get_collection_size(email))
+        else:
+            st.info(f"{i.name} is already processed")
 
 except Exception as e:
     print(e)
