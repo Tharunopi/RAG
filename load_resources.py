@@ -23,7 +23,7 @@ def load() -> bool:
                 st.session_state["loaded_pdf_processor"] = True
 
         if "processed_pdf_name" not in st.session_state:
-            st.session_state["processed_pdf_name"] = []
+            st.session_state["processed_pdf_name"] = {"file_name": [], "chunk_sizes": []}
         
         return True
 

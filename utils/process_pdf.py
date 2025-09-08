@@ -15,6 +15,7 @@ class processPDF():
                 tmp_pdf_path = tmp_file.name
                 pdf_loader = PDFMinerLoader(tmp_pdf_path)
                 pdf_load = pdf_loader.load()
+                print(f"load_pdf: PDF loaded {tmp_pdf_path}")
                 return pdf_load
 
         except Exception as e:
@@ -29,7 +30,8 @@ class processPDF():
                 length_function=len
             )
             splitted_pdf = splitter.split_documents(single_docs)
-            return [i.page_content for i in splitted_pdf]
+            page_content = [i.page_content for i in splitted_pdf]
+            return page_content
 
         except Exception as e:
             print(f"pdf_splitter: {e}")
@@ -49,7 +51,7 @@ class processPDF():
             loaded_pdf = self.load_pdf(pdf)
             splitted_pdf = self.pdf_splitter(loaded_pdf)
             final_embeddings = self.convert_to_embeddings(splitted_pdf)
-            return final_embeddings
+            return final_embeddings, splitted_pdf
         
         except Exception as e:
             print(f"pdf_to_embeddings: {e}")

@@ -73,14 +73,15 @@ class qdrantDB():
             print(f"delete_collection: {e}")
             return None
 
-    def upload_to_collection(self,email:str ,embedded_values:list) -> Optional[bool]:
+    def upload_to_collection(self,email:str ,embedded_values:list, pagecontent) -> Optional[bool]:
         """
         Upload embedded vectors to the existing collection
         """
         try:
             self.__qdrant_client.upload_collection(
                 collection_name=email,
-                vectors=embedded_values
+                vectors=embedded_values,
+                payload={pagecontent}
             )
             return True
 
