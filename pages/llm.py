@@ -1,10 +1,10 @@
 import streamlit as st
 
 vector_store = st.session_state["qdrant_client"].get_vectorstore(st.session_state["email"], st.session_state["embedding_model"])
-text_query = st.text_input("Enter some text related to PDF's")
+placeholder_1 = st.empty()
 
-if st.button("Search"):
-    query_result = vector_store.similarity_search(text_query)
-    # document_id = [i._id for i in query_result]
-    st.write(query_result)
-    # st.write(document_id)
+user_query = st.chat_input("How can we help you?")
+
+if user_query:
+    with st.chat_message("user", avatar="human"):
+        st.write(user_query)

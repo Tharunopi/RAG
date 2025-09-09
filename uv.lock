@@ -866,6 +866,25 @@ wheels = [
 ]
 
 [[package]]
+name = "google-genai"
+version = "1.34.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "google-auth" },
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "requests" },
+    { name = "tenacity" },
+    { name = "typing-extensions" },
+    { name = "websockets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d7/80/54a58abd46b5cb1385d993fd668f8c82c74a8896dceae691da1315a90dc9/google_genai-1.34.0.tar.gz", hash = "sha256:9f963745faaa177a921202aa849c0811f7852089101fa143b7568a32020c9de9", size = 243492, upload-time = "2025-09-09T02:37:31.408Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/53/2f/cd0009936b9fb0bd700a990ea7c8ec8e0f3e7a267279f062222f16823668/google_genai-1.34.0-py3-none-any.whl", hash = "sha256:d944d05c55162f3d408d22ea67bdb8dcc07ff3a9c82074f732acc27653175bdd", size = 244108, upload-time = "2025-09-09T02:37:29.66Z" },
+]
+
+[[package]]
 name = "googleapis-common-protos"
 version = "1.70.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2661,6 +2680,7 @@ dependencies = [
     { name = "crawl4ai" },
     { name = "dotenv" },
     { name = "faiss-cpu" },
+    { name = "google-genai" },
     { name = "googlesearch-python" },
     { name = "langchain" },
     { name = "langchain-cohere" },
@@ -2685,6 +2705,7 @@ requires-dist = [
     { name = "crawl4ai", specifier = ">=0.7.4" },
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "faiss-cpu", specifier = ">=1.12.0" },
+    { name = "google-genai", specifier = ">=1.34.0" },
     { name = "googlesearch-python", specifier = ">=1.3.0" },
     { name = "langchain", specifier = ">=0.3.27" },
     { name = "langchain-cohere", specifier = ">=0.4.5" },

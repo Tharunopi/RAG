@@ -14,7 +14,7 @@ if not st.user.is_logged_in:
 
 if st.user.is_logged_in:
     load_result = load()
-    db, emdedding_model, pdf_engine = st.session_state["loaded_qdrant_client"], st.session_state["loaded_embedding_model"], st.session_state["loaded_pdf_processor"]
+    db, emdedding_model, pdf_engine, llm_models = st.session_state["loaded_qdrant_client"], st.session_state["loaded_embedding_model"], st.session_state["loaded_pdf_processor"], st.session_state["large_language_model"]
     user_info = st.user.to_dict()
     st.session_state["email"] = user_info["email"]
     st.session_state["email_verified"] = user_info["email_verified"]
@@ -37,10 +37,15 @@ if st.user.is_logged_in:
 
         if emdedding_model is False:
             st.badge("Embedding Model", color="red", icon=":material/close:")
-        elif db:
+        elif emdedding_model:
             st.badge("Embedding Model", color="green", icon=":material/check:")
 
         if pdf_engine is False:
             st.badge("PDF Engine", color="red", icon=":material/close:")
-        elif db:
+        elif pdf_engine:
             st.badge("PDF Engine", color="green", icon=":material/check:")
+
+        if llm_models is False:
+            st.badge("LLM model", color="red", icon=":material/close:")
+        elif llm_models:
+            st.badge("LLM model", color="green", icon=":material/check:")

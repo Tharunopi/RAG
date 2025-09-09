@@ -2,10 +2,10 @@ import streamlit as st
 from utils.qdrant_vector_db import qdrantDB
 from utils.embedding_model import embeddingModel
 from utils.process_pdf import processPDF
+from utils.large_language_models import LLM
 
 def load() -> bool:
     try:
-        a, b, c = None, None, None
         if "qdrant_client" not in st.session_state:
             with st.spinner("Loading vector database...", show_time=True):
                 st.session_state["qdrant_client"] = qdrantDB()
@@ -24,6 +24,11 @@ def load() -> bool:
 
         if "processed_pdf_name" not in st.session_state:
             st.session_state["processed_pdf_name"] = {"file_name": [], "chunk_sizes": []}
+
+        if "large_language_model" not in st.session_state:
+            llm = LLM()
+            st.session_state["large_language_model"] = llm.get_model()
+            st.session_state["large_language_model"] = True
         
         return True
 
@@ -32,4 +37,5 @@ def load() -> bool:
         st.session_state["loaded_qdrant_client"] = False
         st.session_state["loaded_embedding_model"] = False
         st.session_state["loaded_pdf_processor"] = False
+        st.session_state["large_language_model"] = False
         return False

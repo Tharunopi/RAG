@@ -81,7 +81,7 @@ class qdrantDB():
             self.__qdrant_client.upload_collection(
                 collection_name=email,
                 vectors=embedded_values,
-                payload={pagecontent}
+                payload=[{"page_content": str(i)} for i in pagecontent]
             )
             return True
 
