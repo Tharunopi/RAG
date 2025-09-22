@@ -9,6 +9,9 @@ class processPDF():
         self.__embedding_model = embedding_model
 
     def load_pdf(self, pdf) -> Optional[list]:
+        """
+        Create a named temp file uploaded pdf -- stores in default path -- 
+        """
         try:
             with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
                 tmp_file.write(pdf.read())
@@ -23,6 +26,9 @@ class processPDF():
             return None
 
     def pdf_splitter(self, single_docs:list) -> Optional[list]:
+        """
+        Splits the pdf based on config's and split to documents to return page content 
+        """
         try:
             splitter = RecursiveCharacterTextSplitter(
                 chunk_size=1000,
