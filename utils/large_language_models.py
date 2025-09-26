@@ -18,6 +18,9 @@ class LLM():
         self.verbose = verbose
 
     def get_model(self, model_name:str="gemini-2.5-pro") -> GoogleGenerativeAI | None:
+        """
+        Returns the object of respective LLM
+        """
         assert model_name in ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.5-flash-lite"], "Plese Enter model with version above 2.5"
 
         try:

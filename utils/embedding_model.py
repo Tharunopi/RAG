@@ -12,14 +12,14 @@ class embeddingModel():
         except Exception as e:
             print(f"From: __init__ - {e}")
 
-    def get_embedding_model(self) -> Optional[CohereEmbeddings]:
+    def get_embedding_model(self, model_name:str="embed-v4.0") -> Optional[CohereEmbeddings]:
         """
         Returns embedding model from huggingface default model
         """
         try:
             embeddings = CohereEmbeddings(
             cohere_api_key=self.__cohere_apikey,
-            model="embed-v4.0"
+            model=model_name
             )
             return embeddings
 

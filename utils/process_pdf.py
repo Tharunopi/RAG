@@ -44,6 +44,9 @@ class processPDF():
             return None
         
     def convert_to_embeddings(self, splitted_docs:list) -> Optional[list]:
+        """
+        Feed the embedding model to convert list[str] -> list[float]
+        """
         try:
             result = self.__embedding_model.embed_documents(splitted_docs)
             return result
@@ -53,6 +56,13 @@ class processPDF():
             return None
         
     def pdf_to_embeddings(self, pdf) -> Optional[list]:
+        """
+        Compeletes the purpose of class by:
+            1. load
+            2. split
+            3. convert to embeddings
+            4. returns page content and embeddings
+        """
         try:
             loaded_pdf = self.load_pdf(pdf)
             splitted_pdf = self.pdf_splitter(loaded_pdf)
