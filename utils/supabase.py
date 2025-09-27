@@ -16,6 +16,9 @@ class supabaseClient():
         self.__supabase_client: Client = create_client(url, key)
 
     def fetch(self, table_name:str, select_statement:str="*"):
+        """
+        Runs select statement on given table, by default statement `*` and returns
+        """
         response = self.__supabase_client.table(table_name) \
                     .select(select_statement) \
                     .execute()
@@ -23,6 +26,9 @@ class supabaseClient():
         return response
     
     def upsert(self, data:userData):
+        """
+        Performs INSERT if data not present and UPDATE if data exists but different
+        """
         response = self.__supabase_client.table(table_name) \
                         .upsert(data.get_data()) \
                         .execute()

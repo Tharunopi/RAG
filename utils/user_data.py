@@ -6,6 +6,9 @@ class userData():
         self.profile_icon = profile_icon
 
     def get_data(self):
+        """
+        Returns user data as dict
+        """
         return {
             "name": self.name,
             "email_id": self.email_id,

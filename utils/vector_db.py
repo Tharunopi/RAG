@@ -10,6 +10,9 @@ class vectorDataBase():
             self, path:str, 
             emdeddings:langchain_core.embeddings.embeddings.Embeddings
             ) -> langchain_community.vectorstores.faiss.FAISS:
+        """
+        Loads and returns vector db from givent path
+        """
         try:
             vector_db = FAISS.load_local(path, embeddings=emdeddings, allow_dangerous_deserialization=True)
             self.is_db_present = True
@@ -27,6 +30,9 @@ class vectorDataBase():
             index:str="hello world",
             indesToDocStoreID:dict={}
             ) -> langchain_community.vectorstores.faiss.FAISS:
+        """
+        Simply initializes empty new db and returns
+        """
         try:
             index = faiss.IndexFlatL2(len(emdeddingFunction.embed_query(index)))
             vector_db = FAISS(

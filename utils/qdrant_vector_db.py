@@ -19,7 +19,7 @@ class qdrantDB():
 
     def create_new_vector_db(self, email:str, dimension:int=1536) -> bool:
         """
-    Creates a new collection and returns it
+    Creates a new collection and returns true on success
     """
         try:
             self.__qdrant_client.recreate_collection(
@@ -37,7 +37,7 @@ class qdrantDB():
     
     def get_collection_size(self, email:str) -> Optional[int]:
         """
-        Returns a list of existing collection name in list
+        Returns the size of given collection
         """
         try:
             collection_size = self.__qdrant_client.get_collection(email)
@@ -91,7 +91,7 @@ class qdrantDB():
 
     def similarity_search(self, email:str, query_vector:list, limit:int=5) -> Optional[list]:
         """
-        Returns nearest neighbour
+        Performs vector results and returns list[results]
         """
         try:
             result = self.__qdrant_client.query_points(
@@ -103,3 +103,4 @@ class qdrantDB():
         
         except Exception as e:
             print(f"similarity_search: {e}")
+            return None
