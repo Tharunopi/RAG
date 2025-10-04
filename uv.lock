@@ -618,6 +618,15 @@ wheels = [
 ]
 
 [[package]]
+name = "dill"
+version = "0.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/12/80/630b4b88364e9a8c8c5797f4602d0f76ef820909ee32f0bacb9f90654042/dill-0.4.0.tar.gz", hash = "sha256:0633f1d2df477324f53a895b02c901fb961bdbf65a17122586ea7019292cbcf0", size = 186976, upload-time = "2025-04-16T00:41:48.867Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/50/3d/9373ad9c56321fdab5b41197068e1d8c25883b3fea29dd361f9b55116869/dill-0.4.0-py3-none-any.whl", hash = "sha256:44f54bf6412c2c8464c14e8243eb163690a9800dbe2c367330883b19c7561049", size = 119668, upload-time = "2025-04-16T00:41:47.671Z" },
+]
+
+[[package]]
 name = "distro"
 version = "1.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2581,6 +2590,18 @@ wheels = [
 ]
 
 [[package]]
+name = "py2flowchart"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "dill" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/65/41/f500ec157e4755896ac6bd8a49f4c733b5a84ebe7e91a6018adb78a59e98/py2flowchart-0.0.3.tar.gz", hash = "sha256:80c11be0a97ed387b36f693c4b34a5a6498cc63d0e09bbc35bd62e2f8b260bba", size = 43997, upload-time = "2023-12-09T03:21:44.878Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/42/dd/2256aade8556c62fc3a862093d6397631ad561d13d10d2c8fcc95626c221/py2flowchart-0.0.3-py3-none-any.whl", hash = "sha256:3cf62c8263a9d8c0eab7ab1324d65348703e4356d095bac09e5214d4280de28e", size = 9441, upload-time = "2023-12-09T03:21:41.951Z" },
+]
+
+[[package]]
 name = "pyarrow"
 version = "21.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3004,6 +3025,7 @@ dependencies = [
     { name = "langsmith" },
     { name = "nest-asyncio" },
     { name = "pdfminer-six" },
+    { name = "py2flowchart" },
     { name = "pydantic" },
     { name = "pyflowchart" },
     { name = "pymongo" },
@@ -3040,6 +3062,7 @@ requires-dist = [
     { name = "langsmith", specifier = ">=0.4.15" },
     { name = "nest-asyncio", specifier = ">=1.6.0" },
     { name = "pdfminer-six", specifier = ">=20250506" },
+    { name = "py2flowchart", specifier = ">=0.0.3" },
     { name = "pydantic", specifier = ">=2.11.7" },
     { name = "pyflowchart", specifier = ">=0.3.1" },
     { name = "pymongo", extras = ["srv"], specifier = ">=4.15.2" },

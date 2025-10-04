@@ -2,6 +2,8 @@ import pymongo, os
 from datetime import datetime
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from utils.document_structure import docStructure
+from pymongo.results import InsertOneResult
 
 load_dotenv()
 
@@ -15,6 +17,7 @@ class mongoClient():
             self.client = MongoClient(self.uri, server_api=pymongo.server_api.ServerApi(version="1", strict=True, deprecation_errors=True))
             self.database = None
             self.collection = None
+            self.conn_status = False
         
         except Exception as e:
             print(f"mongoClient -> __init__ : {e}")
@@ -43,11 +46,12 @@ class mongoClient():
                 self.database.create_collection(coll)
 
             self.collection = self.database[coll]
+            self.conn_status = True
 
         except Exception as e:
             print(f"mongoClient -> init_db_and_collection: {e}")
 
-    def insert_document(self, document:dict) -> bool:
+    def insert_document(self, document:docStructure) -> InsertOneResult | None:
         """
         Insert document with the following structure,
         {
@@ -58,3 +62,28 @@ class mongoClient():
             metadata: dict
         }
         """
+        try:
+            if not self.conn_status:
+                self.init_db_and_collection()
+
+            result = self.database.self.collection.insert_one(document)
+            return result
+
+        except Exception as e:
+            print(f"mongoClient -> insert_document: {e}")
+            return None
+        
+    def delete_document(self, document:docStructure) -> bool:
+        """_summary_
+
+        Args:
+            document (docStructure): _description_
+
+        Returns:
+            bool: _description_
+        """
+        try: 
+            pass
+        
+        except Exception as e:
+            print(f"mongoClient -> delete_document: {e}")
