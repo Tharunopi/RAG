@@ -28,7 +28,7 @@ def load() -> bool:
         if "large_language_model" not in st.session_state:
             llm = LLM()
             st.session_state["large_language_model"] = llm.get_model()
-            st.session_state["large_language_model"] = True
+            st.session_state["large_language_model_status"] = True
         
         return True
 

@@ -19,3 +19,5 @@ class docStructure:
             "metadata": self.metadata,
             "entire_summary": self.entire_summary
         }
+    
+    
