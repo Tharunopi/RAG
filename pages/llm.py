@@ -30,7 +30,7 @@ if prompt:
     st.session_state.messages.append({"role": "user", "context": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
-    with st.chat_message("user"):
+    with st.chat_message("assistant"):
         response = st.write_stream(query_to_llm(prompt))
 
     st.session_state.messages.append({"role": "assistant", "context": response})
