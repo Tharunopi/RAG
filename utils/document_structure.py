@@ -20,4 +20,15 @@ class docStructure:
             "entire_summary": self.entire_summary
         }
     
-    
+class threadStructure:
+    def __init__(self, email:str, uuid:UUID, message:dict):
+        self.email = email
+        self.uuid = uuid
+        self.message = message
+
+    def get(self):
+        return {
+            "email": self.email,
+            "uuid": self.uuid,
+            "message": self.message
+        }
