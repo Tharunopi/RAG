@@ -2,16 +2,14 @@ import streamlit as st
 from utils.document_structure import threadStructure
 from utils.atlas import mongoClient
 from uuid import UUID
+from utils.lang_chain import chain
 from langchain_core.prompts.chat import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-template = """Answer to this question from user 
-Question: {question}"""
+flow_chain = chain()
 
 atlas_client = mongoClient()
 atlas_client.init_db_and_collection()
-prompt_construction = ChatPromptTemplate.from_template(template)
-chain = prompt_construction | st.session_state["large_language_model"] | StrOutputParser()
 
 def write_msg_history() -> None:
     """Render the chat history for the current thread in the app.
@@ -32,7 +30,7 @@ def query_to_llm(prompt:str):
     Returns:
         - Iterator[str]: Stream of response chunks produced by the LLM.
     """
-   return chain.stream({"question": prompt})
+   return flow_chain.get_chain().stream({"question": prompt})
 
 def push_to_atlas(chat_message: dict) -> None:
     """
