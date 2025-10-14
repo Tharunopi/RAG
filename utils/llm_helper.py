@@ -3,10 +3,19 @@ from utils.document_structure import threadStructure
 from utils.atlas import mongoClient
 from uuid import UUID
 from utils.lang_chain import chain
-from langchain_core.output_parsers import StrOutputParser
-flow_chain = chain()
+from utils.vector_search import searchVectorDB
 
-atlas_client = mongoClient()
+if "search_vdb" not in st.session_state:
+    st.session_state["search_vdb"] = searchVectorDB()
+search_vdb = st.session_state["search_vdb"]
+
+if "flow_chain" not in st.session_state:
+    st.session_state["flow_chain"] = chain()
+flow_chain = st.session_state["flow_chain"]
+
+if "atlas_client" not in st.session_state:
+    st.session_state["atlas_client"] = mongoClient()
+atlas_client = st.session_state["atlas_client"]
 atlas_client.init_db_and_collection()
 
 def write_msg_history() -> None:
@@ -28,7 +37,8 @@ def query_to_llm(prompt:str):
     Returns:
         - Iterator[str]: Stream of response chunks produced by the LLM.
     """
-   return flow_chain.get_chain().stream({"question": prompt})
+   context = search_vdb.basic_search(prompt)
+   return flow_chain.get_chain().stream({"context": context, "question": prompt})
 
 def push_to_atlas(chat_message: dict) -> None:
     """
