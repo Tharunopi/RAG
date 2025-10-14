@@ -3,9 +3,7 @@ from utils.document_structure import threadStructure
 from utils.atlas import mongoClient
 from uuid import UUID
 from utils.lang_chain import chain
-from langchain_core.prompts.chat import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-
 flow_chain = chain()
 
 atlas_client = mongoClient()

@@ -41,7 +41,7 @@ class chain:
             print(f"chain -> get_template_string: {e}")
             return None
         
-    def get_chain(self) -> PromptTemplate:
+    def get_chain(self) -> object:
         """Build and return the composed chain
             PromptTemplate.from_template(template) | st.session_state["large_language_model"] | StrOutputParser().
             Requires st.session_state["large_language_model"] to be initialized; returns None on error."""
