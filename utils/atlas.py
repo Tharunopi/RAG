@@ -71,7 +71,7 @@ class mongoClient():
                 result = self.collection.insert_one(doc_content)
             if isinstance(document, threadStructure): 
                 result = self.collection.update_one(
-                    {"uuid": str(doc_content["uuid"]), "email": doc_content["email"]},
+                    {"email": doc_content["email"]},
                     {"$push": {"message": doc_content["message"]}},
                     upsert=True
                 )
@@ -81,7 +81,7 @@ class mongoClient():
             print(f"mongoClient -> insert_document: {e}")
             return None
         
-    def delete_document(self, uuid:UUID = None, document:docStructure | threadStructure = None) -> bool:
+    def delete_document(self, email:str = None, document:docStructure | threadStructure = None) -> bool:
         """_summary_
 
         Args:
@@ -91,8 +91,8 @@ class mongoClient():
             bool: _description_
         """
         try: 
-            if uuid is not None:
-                result = self.collection.delete_one({"uuid": str(uuid)})
+            if email is not None:
+                result = self.collection.delete_one({"email": str(email)})
 
             if isinstance(document, docStructure):
                 pass

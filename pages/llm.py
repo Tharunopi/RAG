@@ -17,7 +17,7 @@ with col1:
 with col2:
     if st.button("Reset Chat history"):
         st.session_state.messages = []
-        if not delete_from_atlas(st.session_state.unique_single_thread_id):
+        if not delete_from_atlas(st.session_state.email):
             st.error("Unable to delete thread chats")
     
         write_msg_history()

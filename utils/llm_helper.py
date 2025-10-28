@@ -56,7 +56,7 @@ def push_to_atlas(chat_message: dict) -> None:
         Reads st.session_state and prints a diagnostic message on failure.
     """
     try:
-        details = threadStructure(email=st.session_state["email"], uuid=st.session_state["unique_single_thread_id"], message=chat_message)
+        details = threadStructure(email=st.session_state["email"], message=chat_message)
         result = atlas_client.insert_document(details)
         if result is None: 
             return False
