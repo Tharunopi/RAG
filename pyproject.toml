@@ -26,6 +26,7 @@ dependencies = [
     "langchain-qdrant>=0.2.0",
     "langsmith>=0.4.15",
     "nest-asyncio>=1.6.0",
+    "openpyxl>=3.1.5",
     "pdfminer-six>=20250506",
     "py2flowchart>=0.0.3",
     "pydantic>=2.11.7",

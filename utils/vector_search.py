@@ -9,8 +9,9 @@ class searchVectorDB:
         try: 
             embedded_query = st.session_state["embedding_model"].embed_query(query)
             top_5 = self.client.similarity_search(st.session_state["email"], embedded_query)
-            print(top_5[0])
-            return [i.payload["page_content"] for i in top_5]
+            top_5 = top_5.points 
+            top_5_page_content = [i.payload["page_content"] for i in top_5]
+            return top_5_page_content
 
         except Exception as e:
             print(f"searchVectorDB -> basic_search: {e}")
