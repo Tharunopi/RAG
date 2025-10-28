@@ -3,22 +3,32 @@ import streamlit as st
 from langchain_core.output_parsers import StrOutputParser
 
 class chain:
-    """
-    Wrapper for constructing a prompt→model→string LCEL chain using langchain_core and Streamlit.
+    rag_query_techniques = {
+        "multi_query": """You are an intelligent query refiner. Your task is to take an initial user query and generate multiple diverse but semantically relevant sub-queries that explore different possible interpretations or aspects of the user’s intent.
 
-    Args:
-        template: Initial prompt template string with {context} and {question} placeholders.
+        Input:
+        User query: <INSERT USER QUERY HERE>
 
-    Attributes:
-        template: The current prompt template.
+        Output:
+        A list of 3–7 refined queries that together capture the full meaning, context, and ambiguity of the original query.
 
-    Methods:
-        update_template(new_template): Update the prompt template; returns True on success, False on failure.
-        get_template_string(): Return the current template string, or None on error.
-        get_chain(): Build and return the composed chain
-            PromptTemplate.from_template(template) | st.session_state["large_language_model"] | StrOutputParser().
-            Requires st.session_state["large_language_model"] to be initialized; returns None on error.
-"""
+        Guidelines:
+
+        Maintain relevance to the original intent.
+
+        Include possible synonyms, paraphrases, and related aspects.
+
+        Avoid redundancy among the queries.
+
+        Ensure clarity and completeness in each query.
+
+        Output only the queries, and separate each query with a forward slash (/).
+
+        Example:
+        User Query: "Impacts of climate change on agriculture"
+        Output:
+        "How does global warming affect crop yields? / What are the effects of changing rainfall patterns on farming? / How is climate change influencing food production worldwide? / Adaptation strategies for farmers to climate change / Case studies on agriculture and climate change impacts""""
+    }
     def __init__(self, template:str="""Answer the following question from the user based on given context. If you don't know then say I don't know explicitly. Context: {context}, Question: {question}"""):
         self.template = template
 
@@ -51,3 +61,10 @@ class chain:
         except Exception as e:
             print(f"chain -> get_chain: {e}")
             return None
+        
+    def get_chain_for_construction(self, method:str) -> object:
+        try:
+            global rag_query_techniques
+            template = rag_query_techniques[method]
+        except Exception as e:
+            print(f"Error: get_chain_for_construction -> {e}")
