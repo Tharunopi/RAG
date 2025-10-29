@@ -7,7 +7,7 @@ class chain:
         "multi_query": """You are an intelligent query refiner. Your task is to take an initial user query and generate multiple diverse but semantically relevant sub-queries that explore different possible interpretations or aspects of the user’s intent.
 
         Input:
-        User query: <INSERT USER QUERY HERE>
+        User query: {query}
 
         Output:
         A list of 3–7 refined queries that together capture the full meaning, context, and ambiguity of the original query.
@@ -27,7 +27,7 @@ class chain:
         Example:
         User Query: "Impacts of climate change on agriculture"
         Output:
-        "How does global warming affect crop yields? / What are the effects of changing rainfall patterns on farming? / How is climate change influencing food production worldwide? / Adaptation strategies for farmers to climate change / Case studies on agriculture and climate change impacts""""
+        'How does global warming affect crop yields? / What are the effects of changing rainfall patterns on farming? / How is climate change influencing food production worldwide? / Adaptation strategies for farmers to climate change / Case studies on agriculture and climate change impacts'"""
     }
     def __init__(self, template:str="""Answer the following question from the user based on given context. If you don't know then say I don't know explicitly. Context: {context}, Question: {question}"""):
         self.template = template
@@ -63,8 +63,27 @@ class chain:
             return None
         
     def get_chain_for_construction(self, method:str) -> object:
+        """Build a chain for query construction using a predefined technique.
+
+        Composes a chain that:
+        - formats a technique-specific prompt template,
+        - invokes the LLM stored in st.session_state["large_language_model"],
+        - parses the string output,
+        - and finally splits the result on '/' to yield a list-like output.
+
+        Args:
+            method: Key into rag_query_techniques specifying which construction
+                template to use (e.g., "multi_query").
+
+        Returns:
+            The composed chain object, or None on error.
+        """
         try:
             global rag_query_techniques
+
             template = rag_query_techniques[method]
+            chain = PromptTemplate.from_template(template) | st.session_state["large_language_model"] | StrOutputParser() | (lambda x: x.split("/"))
+            return chain
+
         except Exception as e:
             print(f"Error: get_chain_for_construction -> {e}")

@@ -40,6 +40,9 @@ def query_to_llm(prompt:str):
    context = search_vdb.basic_search(prompt)
    return flow_chain.get_chain().stream({"context": context, "question": prompt})
 
+def query_to_rag(prompt:str):
+    different_questions = 
+
 def push_to_atlas(chat_message: dict) -> None:
     """
     Persist a chat message to Atlas for the current single-thread session.

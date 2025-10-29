@@ -5,6 +5,11 @@ email = st.session_state["email"]
 placeholder_1 = st.empty()
 placeholder_2 = st.empty()
 
+def load_dataframe():
+    df = pd.DataFrame(st.session_state["processed_pdf_name"])
+    with placeholder_1:
+            st.dataframe(df, width="content", hide_index=True)
+
 try:
     pdfs = st.file_uploader(
         label="Upload PDF's",
@@ -31,9 +36,8 @@ try:
             else:
                 st.badge(f"DB size: {collection_size}", color="green")
 
-        with placeholder_1:
-            df = pd.DataFrame(st.session_state["processed_pdf_name"])
-            st.dataframe(df, width="content", hide_index=True)
+        load_dataframe()
+    load_dataframe()
         
 except Exception as e:
     print(e)
