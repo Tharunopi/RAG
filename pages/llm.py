@@ -9,6 +9,7 @@ if "unique_single_thread_id" not in st.session_state:
     st.session_state.unique_single_thread_id = uuid4()
 
 col1, col2 = st.columns([3, 1])
+is_think = st.checkbox("MultiQuery", help="If your query is ambiguous then enable this to contruct many abstract and non-abstract query.")
 
 with col1:
     st.title(f"Simple Echo Bot")
@@ -30,7 +31,7 @@ if "messages" not in st.session_state:
 
 write_msg_history()
 
-greet_msg = "How can I help you?" if len(st.session_state.messages) == 0 else "**On the line with context**" 
+greet_msg = "How can I help you?" if len(st.session_state.messages) == 0 else "On the line with context" 
 
 prompt = st.chat_input(greet_msg)
 
@@ -44,7 +45,7 @@ if prompt:
     with st.chat_message("user"):
         st.markdown(prompt)
     with st.chat_message("assistant"):
-        response = st.write_stream(query_to_llm(prompt))
+        response = st.write_stream(query_to_llm(prompt, is_think))
 
     assistant_msg = {"role": "assistant", "context": response}
     st.session_state.messages.append(assistant_msg)

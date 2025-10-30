@@ -67,6 +67,8 @@ class mongoClient():
             if not self.conn_status:
                 self.init_db_and_collection()
             doc_content = document.get()
+            result = None
+
             if isinstance(document, docStructure):
                 result = self.collection.insert_one(doc_content)
             if isinstance(document, threadStructure): 

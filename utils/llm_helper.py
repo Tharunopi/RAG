@@ -29,7 +29,28 @@ def write_msg_history() -> None:
         with st.chat_message(i["role"]):
             st.markdown(i["context"])
 
-def query_to_llm(prompt:str):
+def query_to_rag(prompt:str):
+    different_questions:list = flow_chain.get_chain_for_construction().invoke({"query": prompt})
+    documents:list = []
+    final_docs = None
+
+    if len(different_questions) > 1:
+        for i in different_questions:
+            contexts = search_vdb.basic_search(i)
+            if contexts is not None:
+                for j in contexts:
+                    documents.append(j)
+            else:
+                print("From query_to_rag() -> contexts seems to be None!")
+    else:
+        print("From query_to_rag() -> different_questions seems to be empty list!")
+
+    if len(documents) >= 1:
+        final_docs = list(set(documents))
+
+    return final_docs
+
+def query_to_llm(prompt:str, think_mode:bool):
    """
     Stream the LLM response for a given prompt using the configured chain.
     Parameters:
@@ -37,11 +58,14 @@ def query_to_llm(prompt:str):
     Returns:
         - Iterator[str]: Stream of response chunks produced by the LLM.
     """
-   context = search_vdb.basic_search(prompt)
-   return flow_chain.get_chain().stream({"context": context, "question": prompt})
+   if think_mode:
+       context = query_to_rag(prompt)
+   else:
+       context = search_vdb.basic_search(prompt)
+    
+   print(len(context))
 
-def query_to_rag(prompt:str):
-    different_questions = 
+   return flow_chain.get_chain().stream({"context": context, "question": prompt})
 
 def push_to_atlas(chat_message: dict) -> None:
     """
